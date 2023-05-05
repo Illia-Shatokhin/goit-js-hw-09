@@ -9,6 +9,7 @@ startButton.addEventListener('click', changesBackgroundColor);
 stopButton.addEventListener('click', stopChangesBackgroundColor);
 
 function changesBackgroundColor() {
+  attachBodyBackgroundColor(getRandomHexColor);
   timerId = setInterval(attachBodyBackgroundColor, 1000, getRandomHexColor);
   stopButton.removeAttribute('disabled', 'disabled');
   startButton.setAttribute('disabled', 'disabled');
