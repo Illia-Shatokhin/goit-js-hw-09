@@ -30,6 +30,7 @@ flatpickr(dateInput, options);
 startButton.setAttribute('disabled', 'disabled');
 
 startButton.addEventListener('click', () => {
+  countdown();
   intervalId = setInterval(countdown, 1000);
 });
 
