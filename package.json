@@ -12,12 +12,13 @@
     "url": "git+https://github.com/Illia-Shatokhin/goit-js-hw-09.git"
   },
   "keywords": [],
-  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "author": "Illia Shatokhin <resonance.2106@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Illia-Shatokhin/goit-js-hw-09/issues"
   },
   "dependencies": {
+    "flatpickr": "^4.6.13",
     "modern-normalize": "^1.1.0"
   },
   "devDependencies": {
