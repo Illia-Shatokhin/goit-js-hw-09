@@ -12,20 +12,20 @@ form.addEventListener('submit', event => {
   const amount = Number(
     form.lastElementChild.previousElementSibling.firstElementChild.value
   );
-  let i = 1;
+  let iterator = 1;
   for (
-    let j = firstDelay;
-    j < stepDelay * amount + firstDelay;
-    j += stepDelay
+    let delay = firstDelay;
+    delay < stepDelay * amount + firstDelay;
+    delay += stepDelay
   ) {
-    createPromise(i, j)
+    createPromise(iterator, delay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
-    i++;
+    iterator++;
   }
 });
 
