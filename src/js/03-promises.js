@@ -2,7 +2,6 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const btn = document.querySelector('button');
 const form = document.querySelector('.form');
-// console.log(btn);
 
 form.addEventListener('submit', event => {
   event.preventDefault();
@@ -13,47 +12,32 @@ form.addEventListener('submit', event => {
   const amount = Number(
     form.lastElementChild.previousElementSibling.firstElementChild.value
   );
-  let counterDelay = firstDelay;
-  let counterItteration = 1;
-  setTimeout(() => {
-    const timerId = setInterval(() => {
-      createPromise(counterItteration, counterDelay)
-        .then(text => Notify.success(text))
-        .catch(text => Notify.failure(text))
-        .finally(() => {
-          counterDelay += stepDelay;
-          counterItteration++;
-        });
-      if (counterItteration === amount) {
-        clearInterval(timerId);
-      }
-    }, stepDelay);
-  }, firstDelay);
+  let i = 1;
+  for (
+    let j = firstDelay;
+    j < stepDelay * amount + firstDelay;
+    j += stepDelay
+  ) {
+    createPromise(i, j)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
+    i++;
+  }
 });
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   return new Promise((resolve, reject) => {
-    if (shouldResolve) {
-      // Fulfill
-      resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
-    } else {
-      // Reject
-      reject(`❌ Rejected promise ${position} in ${delay}ms`);
-    }
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve({ position, delay });
+      } else {
+        reject({ position, delay });
+      }
+    }, delay);
   });
 }
-
-// function createPromise(position, delay) {
-//   const shouldResolve = Math.random() > 0.3;
-//   return new Promise((resolve, reject) => {
-//     setInterval(() => {
-//       if (shouldResolve) {
-//         // Fulfill
-//         resolve('success value');
-//       } else {
-//         reject('error');
-//       }
-//     }, delay);
-//   });
-// }
